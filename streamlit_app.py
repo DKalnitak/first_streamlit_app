@@ -37,6 +37,12 @@ streamlit.dataframe(fruits_to_show)
 
 streamlit.header("Fruityvice Fruit Advice!")
 import requests
+
+# anew section to display fruity vice api response
+fruit_choice=streamlit.text_input('what fruit would you like information about?','Kiwi')
+streamlit.write('The user entered',fruit choice)
+
+
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/kiwi")
 #streamlit.text(fruityvice_response.json()) just writes data to the screen
 
