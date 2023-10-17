@@ -43,7 +43,7 @@ streamlit.dataframe(fruits_to_show)
 
 streamlit.header("Fruityvice Fruit Advice!")
 
-
+'''
 # anew section to display fruity vice api response
 fruit_choice=streamlit.text_input('what fruit would you like information about?','Kiwi')
 streamlit.write('The user entered',fruit_choice)
@@ -59,6 +59,23 @@ fruityvice_response=requests.get("https://fruityvice.com/api/fruit/"+fruit_choic
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # write your own comment - what does this do?
 streamlit.dataframe(fruityvice_normalized)
+'''
+# writing code uding try and except
+#anew section to display fruity vice api response
+streamlit.header('fruityvice fruit advice!')
+try:
+  fruit_choice=streamlit.text_input('what fruit would you like information about?')
+  if not fruit_choice:
+    streamlit.error("please select a fruit to get information.")
+  else:
+    fruityvice_response=requests.get("https://fruityvice.com/api/fruit/"+fruit_choice)
+    fruityvice_normalized=pandas.json_normalize(fruityvice_response.json())
+    streamlit.dataframe(fruityvice_normalized)
+except URLError as e:
+  streamlit.error()
+
+
+
 # dont run
 streamlit.stop()
 #import snowflake.connector
