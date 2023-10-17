@@ -124,11 +124,9 @@ my_data_row=my_cur.fetchone()
 streamlit.header("The fruit load list contains:")
 streamlit.dataframe(my_data_row)
 """
-#to fetch all rows
-my_cur.execute("select * from fruit_load_list")
-my_data_row=my_cur.fetchall()
-streamlit.header("The fruit load list contains:")
-streamlit.dataframe(my_data_row)
+
+
+
 
 
 #using function and buttons and display data
@@ -145,7 +143,11 @@ if streamlit.button('get fruit load list'):
   streamlit.dataframe(my_data_rows)
     
 
-
+#to fetch all rows
+my_cur.execute("select * from fruit_load_list")
+my_data_row=my_cur.fetchall()
+streamlit.header("The fruit load list contains:")
+streamlit.dataframe(my_data_row)
 
 # dont run
 streamlit.stop()
