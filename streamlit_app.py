@@ -1,4 +1,10 @@
 import streamlit
+import pandas
+import requests
+import snowflake.connector
+#import one more library we will need to use this in our control of flow changes
+from urllib.error import URLError
+# url error for error message handling
 
 streamlit.title('My Parents New Healthy Diner')
 streamlit.header('breakfast favorites')
@@ -8,7 +14,7 @@ streamlit.text('🐔 hard-boiled free-range egg')
 streamlit.text('🥑🍞 avocado Toast')
 streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 
-import pandas
+#import pandas
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 
 
@@ -42,7 +48,7 @@ streamlit.header("Fruityvice Fruit Advice!")
 fruit_choice=streamlit.text_input('what fruit would you like information about?','Kiwi')
 streamlit.write('The user entered',fruit_choice)
 
-import requests
+#import requests
 fruityvice_response=requests.get("https://fruityvice.com/api/fruit/"+fruit_choice)
 
 
@@ -53,8 +59,9 @@ fruityvice_response=requests.get("https://fruityvice.com/api/fruit/"+fruit_choic
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # write your own comment - what does this do?
 streamlit.dataframe(fruityvice_normalized)
-
-import snowflake.connector
+# dont run
+streamlit.stop()
+#import snowflake.connector
 #connecting streamlite to snowflake
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
@@ -92,6 +99,6 @@ streamlit.dataframe(my_data_row)
 # add a new section to display fruit 
 add_new_fruit=streamlit.text_input('what fruit would you like to add?','jackfruit')
 streamlit.write('Thanks for adding',add_new_fruit)
-
+#this will not run now whenever u made changes in streamlit it add value to table
 my_cur.execute("insert into fruit_load_list values('from streamlit')")
 
